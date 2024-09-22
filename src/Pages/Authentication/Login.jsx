@@ -1,30 +1,84 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const Login = () => {
-  const [show, setShow] = useState(true);
-  // Navigate
-  const navigate = useNavigate();
-  const location = useLocation();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handleLogin = (data) => {};
+  const { loginUser, google, github } = useContext(AuthContext);
+  const [show, setShow] = useState(true);
+  // Navigate
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const handleGoogle = () => {};
-  const handleGithub = () => {};
+  const handleLogin = (data) => {
+    const { email, password } = data;
+
+    loginUser(email, password).then((data) => {
+      console.log(data);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Login Successful",
+        text: `welcome back ${data?.user?.displayName}`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate(location?.state ? location.state : "/");
+    });
+  };
+
+  const handleGoogle = () => {
+    google()
+      .then((data) => {
+        console.log(data);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Successful",
+          text: `welcome ${data?.user?.displayName}`,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleGithub = () => {
+    github()
+      .then((data) => {
+        console.log(data);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Login Successful",
+          text: `welcome ${data?.user?.displayName}`,
+          showConfirmButton: false,
+          timer: 1000,
+        });
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
       <Helmet>
-        <title>CraftFusion | Login</title>
+        <title>Login</title>
       </Helmet>
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl shadow-md shadow-blue-600">
         <h1 className="text-2xl font-bold text-center">Login</h1>
