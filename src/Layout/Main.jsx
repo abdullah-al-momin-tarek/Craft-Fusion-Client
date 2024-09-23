@@ -4,7 +4,9 @@ import Navbar from "../Components/Shared/Navbar";
 const Main = () => {
   return (
     <div className="roboto">
-      <Navbar />
+      <div className="h-24">
+        <Navbar />
+      </div>
       <Outlet />
     </div>
   );
