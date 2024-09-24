@@ -1,7 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
 import Theme from "./Theme";
+import { useContext } from "react";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
+  const {users} = useContext(AuthContext)
   const links = (
     <>
       <li>
@@ -13,11 +16,11 @@ const Navbar = () => {
       <li>
         <NavLink to="/addCraft">Add Craft Item</NavLink>
       </li>
-      {/* <li>
+      <li>
         <NavLink to={`/myCraft/${users?.email}`}>My Art & Craft List</NavLink>
-      </li> */}
+      </li>
 
-      {/* {!users && (
+      {!users && (
         <>
           <li>
             <NavLink to="/login">Login</NavLink>
@@ -26,11 +29,11 @@ const Navbar = () => {
             <NavLink to="/register">Register</NavLink>
           </li>
         </>
-      )} */}
+      )}
     </>
   );
   return (
-    <div className="navbar  bg-base-300 rounded-b-md fixed">
+    <div className="navbar  bg-base-300 rounded-b-md fixed z-50">
       <div className="navbar-start">
         <div className="dropdown z-10">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden ">

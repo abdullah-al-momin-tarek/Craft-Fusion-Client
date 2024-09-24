@@ -4,7 +4,7 @@ import Navbar from "../Components/Shared/Navbar";
 const Main = () => {
   return (
     <div className="roboto">
-      <div className="h-24">
+      <div className="h-[68px]">
         <Navbar />
       </div>
       <Outlet />
