@@ -1,0 +1,76 @@
+[
+    {
+    "_id": "662e08f0151570a02d0c316a",
+    "subcategory_name": "Watercolour Painting",
+    "image": "https://i.ibb.co/fC5cjst/water-color-paint.webp",
+    "difficulty": "Beginner to Intermediate",
+    "description": "Explore the transparency and fluidity of watercolor paints.",
+    "materials": [
+    "Watercolor paper",
+    "Watercolor paints",
+    "Paintbrushes"
+    ]
+    },
+    {
+    "_id": "662e08f0151570a02d0c316b",
+    "subcategory_name": "Oil Painting",
+    "image": "https://i.ibb.co/bd76k0y/oil-paint.jpg",
+    "difficulty": "Intermediate to Advanced",
+    "description": "Create rich and vibrant artworks with oil paints.",
+    "materials": [
+    "Canvas",
+    "Oil paints",
+    "Palette knives",
+    "Turpentine"
+    ]
+    },
+    {
+    "_id": "662e08f0151570a02d0c3168",
+    "subcategory_name": "Landscape Painting",
+    "image": "https://i.ibb.co/WGJGPnz/landscape-painting.jpg",
+    "difficulty": "Intermediate",
+    "description": "Capture the beauty of natural landscapes on canvas.",
+    "materials": [
+    "Canvas",
+    "Oil paints",
+    "Paintbrushes"
+    ]
+    },
+    {
+    "_id": "662e08f0151570a02d0c316c",
+    "subcategory_name": "Charcoal Sketching",
+    "image": "https://i.ibb.co/Ld5fQc7/carosel-art.jpg",
+    "difficulty": "Beginner to Intermediate",
+    "description": "Master the art of expressive sketching with charcoal.",
+    "materials": [
+    "Drawing paper",
+    "Charcoal sticks",
+    "Kneaded eraser"
+    ]
+    },
+    {
+    "_id": "662e08f0151570a02d0c316d",
+    "subcategory_name": "Cartoon Drawing",
+    "image": "https://i.ibb.co/2F3mLDz/cartoon.jpg",
+    "difficulty": "Beginner to Advanced",
+    "description": "Create whimsical characters and stories through cartooning.",
+    "materials": [
+    "Drawing paper",
+    "Pencils",
+    "Markers"
+    ]
+    },
+    {
+    "_id": "662e08f0151570a02d0c3169",
+    "subcategory_name": "Portrait Drawing",
+    "image": "https://i.ibb.co/1GGVYt8/portrait-drawing.jpg",
+    "difficulty": "Beginner to Advanced",
+    "description": "Create detailed portraits using various drawing techniques.",
+    "materials": [
+    "Drawing paper",
+    "Pencils",
+    "Ink",
+    "Acrylic paints"
+    ]
+    }
+    ]

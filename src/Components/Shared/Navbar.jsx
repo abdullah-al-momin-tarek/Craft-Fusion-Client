@@ -1,42 +1,101 @@
-import { Link, NavLink } from "react-router-dom";
-import Theme from "./Theme";
 import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
+import Theme from "./Theme";
 
 const Navbar = () => {
-  const {users} = useContext(AuthContext)
+  const { users } = useContext(AuthContext);
+
+  const activeClassName = "text-white bg-[#c87ffc]";
+  const hoverClassName = "hover:bg-orange-500 hover:text-white";
+
   const links = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition duration-300 ${
+              isActive ? activeClassName : hoverClassName
+            }`
+          }
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/allCraft">All Art & Craft Items</NavLink>
+        <NavLink
+          to="/allCraft"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition duration-300 ${
+              isActive ? activeClassName : hoverClassName
+            }`
+          }
+        >
+          All Art & Craft Items
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/addCraft">Add Craft Item</NavLink>
+        <NavLink
+          to="/addCraft"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition duration-300 ${
+              isActive ? activeClassName : hoverClassName
+            }`
+          }
+        >
+          Add Craft Item
+        </NavLink>
       </li>
       <li>
-        <NavLink to={`/myCraft/${users?.email}`}>My Art & Craft List</NavLink>
+        <NavLink
+          to={`/myCraft/${users?.email}`}
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition duration-300 ${
+              isActive ? activeClassName : hoverClassName
+            }`
+          }
+        >
+          My Art & Craft List
+        </NavLink>
       </li>
 
       {!users && (
         <>
           <li>
-            <NavLink to="/login">Login</NavLink>
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded transition duration-300 ${
+                  isActive ? activeClassName : hoverClassName
+                }`
+              }
+            >
+              Login
+            </NavLink>
           </li>
           <li>
-            <NavLink to="/register">Register</NavLink>
+            <NavLink
+              to="/register"
+              className={({ isActive }) =>
+                `px-3 py-2 rounded transition duration-300 ${
+                  isActive ? activeClassName : hoverClassName
+                }`
+              }
+            >
+              Register
+            </NavLink>
           </li>
         </>
       )}
     </>
   );
+
   return (
-    <div className="navbar  bg-base-300 rounded-b-md fixed z-50">
+    <div className="navbar bg-[#fff38a] dark:bg-black/35 rounded-b-md fixed z-50">
       <div className="navbar-start">
         <div className="dropdown z-10">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden ">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -61,9 +120,10 @@ const Navbar = () => {
         </div>
         <Link
           to="/"
-          className="btn btn-ghost -ml-7 md:ml-0 md:text-2xl font-bold text-orange-700"
+          className="btn btn-ghost -ml-7 md:ml-0 md:text-2xl font-bold text-orange-700 flex items-center justify-center"
         >
-          CraftFusion
+          <img className="w-7 h-7" src="/craftFusion.png" alt="Logo" />
+          <span className="text-blue-500 -ml-2">CraftFusion</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
