@@ -2,14 +2,19 @@ import { updateProfile } from "firebase/auth";
 import { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGithub } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 import auth from "../../Firebase/Firebase.config";
+import useAxios from "../../useAxios/useAxios";
+import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
 
 const Register = () => {
   const [show, setShow] = useState(true);
+  const axiosPublic = useAxios();
+  
   // Navigate
   const navigate = useNavigate();
   const location = useLocation();
@@ -18,7 +23,7 @@ const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser, google } = useContext(AuthContext);
   const [error, setError] = useState("");
 
   const handleRegister = (data) => {
@@ -49,16 +54,25 @@ const Register = () => {
           .then(() => console.log("username set successful"))
           .catch((error) => console.error(error));
 
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Register successful",
-          // text: `Welcome ${data?.user?.displayName}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
+          const userInfo = {name, email, photoURL: photo, role: 'user'}
+          console.log('test', userInfo);
+          
 
-        // toast.success("Successfully registered");
+          axiosPublic.post('/add-user',userInfo)
+          .then((data)=>{
+            console.log(data);
+            
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Register successful",
+              // text: `Welcome ${data?.user?.displayName}`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+
+        
         navigate(location?.state ? location.state : "/");
         console.log("registerd Successfull");
       })
@@ -77,6 +91,34 @@ const Register = () => {
         console.error(error);
       });
   };
+
+  const handleGoogle = () => {
+    google()
+      .then((data) => {
+        console.log(data);
+        
+        const userInfo = {name: data.user.displayName, email: data.user.email, photoURL: data.user.photoURL, role: "user"};
+        axiosPublic.post('/add-user',userInfo)
+          .then((data)=>{
+            console.log(data);
+            
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Register successful",
+              // text: `Welcome ${data?.user?.displayName}`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+
   return (
     <div className="flex justify-center items-center  h-screen">
       <Helmet>
@@ -156,6 +198,30 @@ const Register = () => {
             Register
           </button>
         </form>
+
+        <div className="flex items-center pt-4 space-x-1">
+          <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
+          <p className="px-3 text-sm dark:text-gray-600">
+            Login with social accounts
+          </p>
+          <div className="flex-1 h-px sm:w-16 dark:bg-gray-300"></div>
+        </div>
+        <div className="flex justify-center space-x-">
+          <button
+            onClick={handleGoogle}
+            aria-label="Log in with Google"
+            className="p-3 rounded-sm text-3xl"
+          >
+            <FcGoogle />
+          </button>
+          <button
+            
+            aria-label="Log in with GitHub"
+            className="p-3 rounded-sm text-3xl"
+          >
+            <FaGithub />
+          </button>
+        </div>
 
         <p className="text-xs text-center sm:px-6 dark:text-gray-600">
           Already have an account?
