@@ -7,13 +7,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 import auth from "../../Firebase/Firebase.config";
-import useAxios from "../../useAxios/useAxios";
-import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
+import useAxios from "../../Hooks/useAxios";
 
 const Register = () => {
   const [show, setShow] = useState(true);
-  const axiosPublic = useAxios();
+  const axiosPublic = useAxios()
   
   // Navigate
   const navigate = useNavigate();

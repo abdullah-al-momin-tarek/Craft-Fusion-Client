@@ -3,6 +3,7 @@ import "@egjs/react-flicking/dist/flicking.css";
 import { Helmet } from "react-helmet-async";
 import Banner from "../Components/Home/Banner";
 import Collection from "../Components/Home/Collection";
+import Slider from "../Components/Home/Slider";
 
 const Home = () => {
   return (
@@ -12,6 +13,7 @@ const Home = () => {
       </Helmet>
 
       <Banner />
+      <Slider/>
 
       <Collection />
     </div>

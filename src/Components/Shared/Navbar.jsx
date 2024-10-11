@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Theme from "./Theme";
+import { FaHeartCirclePlus } from "react-icons/fa6";
+import { FaCartPlus } from "react-icons/fa";
 
 const Navbar = () => {
   const { users,logOut } = useContext(AuthContext);
@@ -129,7 +131,9 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end gap-5 pr-5">
+        <button className="text-2xl"><FaHeartCirclePlus /></button>
+        <button className="text-2xl"><FaCartPlus /></button>
         {/* Theme Controller */}
         <Theme />
       </div>
