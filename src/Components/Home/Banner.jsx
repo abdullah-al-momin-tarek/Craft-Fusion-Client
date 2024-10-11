@@ -2,7 +2,7 @@ import Button from "../Reusable/Button";
 
 const Banner = () => {
   return (
-    <section className="bg-hero min-w-screen min-h-[80vh] hero-overlay bg-no-repeat object-cover bg-cover">
+    <section className="bg-hero min-w-screen min-h-[80vh] hero-overlay bg-no-repeat object-cover bg-cover mb-10">
       <div className="min-w-screen min-h-[80vh] bg-[#000000b3]  flex justify-center items-center p-3">
         <div>
           <h4 className="text-white lg:text-3xl text-2xl mb-3">
