@@ -6,8 +6,10 @@ import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
+import useAxios from "../../Hooks/useAxios";
 
 const Login = () => {
+  const axiosPublic = useAxios()
   const {
     register,
     handleSubmit,
@@ -41,14 +43,21 @@ const Login = () => {
     google()
       .then((data) => {
         console.log(data);
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "Login Successful",
-          text: `welcome ${data?.user?.displayName}`,
-          showConfirmButton: false,
-          timer: 1000,
-        });
+        
+        const userInfo = {name: data.user.displayName, email: data.user.email, photoURL: data.user.photoURL, role: "user"};
+        axiosPublic.post('/add-user',userInfo)
+          .then((data)=>{
+            console.log(data);
+            
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Register successful",
+              // text: `Welcome ${data?.user?.displayName}`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+          })
         navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {

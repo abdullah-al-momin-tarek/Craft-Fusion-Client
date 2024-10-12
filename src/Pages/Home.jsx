@@ -4,6 +4,9 @@ import { Helmet } from "react-helmet-async";
 import Banner from "../Components/Home/Banner";
 import Collection from "../Components/Home/Collection";
 import Slider from "../Components/Home/Slider";
+import Unique from "../Components/Home/Unique";
+import ProductsCard from "../Components/Products/ProductsCard";
+import Products from "../Components/Products/Products";
 
 const Home = () => {
   return (
@@ -14,6 +17,9 @@ const Home = () => {
 
       <Banner />
       <Slider/>
+
+      <Unique/>
+      <Products/>
 
       <Collection />
     </div>

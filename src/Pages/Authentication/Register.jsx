@@ -35,14 +35,14 @@ const Register = () => {
       setError("Password must be at least 6 character");
       return;
     }
-    if (!/.*[a-z].*/.test(password)) {
-      setError("Password must have an lowercase");
-      return;
-    }
-    if (!/.*[A-Z].*/.test(password)) {
-      setError("Password must have an Uppercase");
-      return;
-    }
+    // if (!/.*[a-z].*/.test(password)) {
+    //   setError("Password must have an lowercase");
+    //   return;
+    // }
+    // if (!/.*[A-Z].*/.test(password)) {
+    //   setError("Password must have an Uppercase");
+    //   return;
+    // }
 
     registerUser(email, password)
       .then(() => {
