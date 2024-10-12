@@ -3,6 +3,7 @@ import { BsCartCheckFill } from "react-icons/bs";
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import useAxios from "../../Hooks/useAxios";
+import toast, { Toaster } from 'react-hot-toast';
 
 const ProductsCard = ({ product }) => {
     const {users} = useContext(AuthContext)
@@ -15,7 +16,7 @@ const ProductsCard = ({ product }) => {
         }
         axiosPublic.post("/add-cart", data)
         .then(data=>{
-            console.log(data);
+            toast.success(data?.data?.message)
             
         })
 
@@ -39,6 +40,10 @@ const ProductsCard = ({ product }) => {
                     <BsCartCheckFill /> Buy Now
                 </button>
             </div>
+            <Toaster
+  position="top-right"
+  reverseOrder={true}
+/>
         </div>
     );
 };

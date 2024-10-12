@@ -1,15 +1,24 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Theme from "./Theme";
 import { FaHeartCirclePlus } from "react-icons/fa6";
 import { FaCartPlus } from "react-icons/fa";
+import useAxios from "../../Hooks/useAxios";
 
 const Navbar = () => {
   const { users,logOut } = useContext(AuthContext);
+  const axiosPublic = useAxios()
+  const [cartData, setCartData] = useState()
 
   const activeClassName = "text-white bg-[#c87ffc]";
   const hoverClassName = "hover:bg-orange-500 hover:text-white";
+
+  axiosPublic.get(`/cart/${users?.email}`)
+  .then(res=>{
+    setCartData(res.data)
+    
+  })
 
   const links = (
     <>
@@ -133,7 +142,10 @@ const Navbar = () => {
       </div>
       <div className="navbar-end gap-5 pr-5">
         <button className="text-2xl"><FaHeartCirclePlus /></button>
-        <button className="text-2xl"><FaCartPlus /></button>
+        <div className="relative">
+        <button className="text-2xl text-[#FF6F61]"><FaCartPlus /></button>
+        <small className="absolute -top-2  text-blue-500 font-bold text-[18px]">{cartData.length}</small>
+        </div>
         {/* Theme Controller */}
         <Theme />
       </div>
