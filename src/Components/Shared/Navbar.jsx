@@ -1,24 +1,20 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import Theme from "./Theme";
 import { FaHeartCirclePlus } from "react-icons/fa6";
 import { FaCartPlus } from "react-icons/fa";
-import useAxios from "../../Hooks/useAxios";
+import useCart from "../../Context/useCart";
 
 const Navbar = () => {
   const { users,logOut } = useContext(AuthContext);
-  const axiosPublic = useAxios()
-  const [cartData, setCartData] = useState()
+  const {carts} = useCart()
 
   const activeClassName = "text-white bg-[#c87ffc]";
   const hoverClassName = "hover:bg-orange-500 hover:text-white";
 
-  axiosPublic.get(`/cart/${users?.email}`)
-  .then(res=>{
-    setCartData(res.data)
-    
-  })
+
+ 
 
   const links = (
     <>
@@ -71,34 +67,6 @@ const Navbar = () => {
         </NavLink>
       </li>
 
-      {!users && (
-        <>
-          <li>
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                `px-3 py-2 rounded transition duration-300 ${
-                  isActive ? activeClassName : hoverClassName
-                }`
-              }
-            >
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/register"
-              className={({ isActive }) =>
-                `px-3 py-2 rounded transition duration-300 ${
-                  isActive ? activeClassName : hoverClassName
-                }`
-              }
-            >
-              Register
-            </NavLink>
-          </li>
-        </>
-      )}
     </>
   );
 
@@ -144,9 +112,10 @@ const Navbar = () => {
         <button className="text-2xl"><FaHeartCirclePlus /></button>
         <div className="relative">
         <button className="text-2xl text-[#FF6F61]"><FaCartPlus /></button>
-        <small className="absolute -top-2  text-blue-500 font-bold text-[18px]">{cartData.length}</small>
+        <small className="absolute -top-2  text-white font-bold text-[10px] bg-green-500 rounded-full px-1">{carts?.length ? carts?.length : 0}</small>
         </div>
         {/* Theme Controller */}
+
         <Theme />
       </div>
       <div>

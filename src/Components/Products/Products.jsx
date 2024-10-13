@@ -1,15 +1,24 @@
 import { useState } from "react";
 import useAxios from "../../Hooks/useAxios";
 import ProductsCard from "./ProductsCard";
+import { useQuery } from "@tanstack/react-query";
 
 const Products = () => {
     const axiosPublic = useAxios()
-    const [products, setProducts] = useState()
 
-    axiosPublic.get("/products")
-    .then(data=>{
-        setProducts(data.data) 
-    })
+    const {data: products, isLoading} = useQuery({
+        queryKey: ['cart'],
+        queryFn: async ()=>{
+          const res = await axiosPublic.get(`/products`)
+          return res.data
+        },
+      })
+      
+      if(isLoading){
+        return "loading........"
+      }
+
+   
     return (
         <div className="mt-12">
             <div>
