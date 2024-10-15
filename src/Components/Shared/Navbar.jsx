@@ -8,13 +8,20 @@ import useCart from "../../Context/useCart";
 
 const Navbar = () => {
   const { users,logOut } = useContext(AuthContext);
-  const {carts} = useCart()
+  const {carts, refetch} = useCart()
 
   const activeClassName = "text-white bg-[#c87ffc]";
   const hoverClassName = "hover:bg-orange-500 hover:text-white";
 
 
- 
+ const handleLogout=()=>{
+    logOut()
+    .then(()=>{
+      console.log("logout");
+      
+      refetch()
+    })
+ }
 
   const links = (
     <>
@@ -109,7 +116,9 @@ const Navbar = () => {
         <ul className="menu menu-horizontal px-1">{links}</ul>
       </div>
       <div className="navbar-end gap-5 pr-5">
-        <button className="text-2xl"><FaHeartCirclePlus /></button>
+        {
+          users && <Link to={"/dashboard/profile"}><button className="bg-lime-700 p-2 text-white rounded-xl hover:bg-inherit border border-lime-700">Dashboard</button></Link>
+        }
         <div className="relative">
         <button className="text-2xl text-[#FF6F61]"><FaCartPlus /></button>
         <small className="absolute -top-2  text-white font-bold text-[10px] bg-green-500 rounded-full px-1">{carts?.length ? carts?.length : 0}</small>
@@ -138,7 +147,7 @@ const Navbar = () => {
               </a>
             </li>
             <li><a>Settings</a></li>
-            <li><button onClick={()=>logOut()}>Logout</button></li>
+            <li><button onClick={handleLogout}>Logout</button></li>
           </ul>
         </div> : <Link to={'/login'}><button  className="bg-orange-500 text-white p-3 rounded-xl">Login</button></Link>
         }

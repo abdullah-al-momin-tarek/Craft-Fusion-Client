@@ -1,16 +1,27 @@
 import { FaBook, FaHome, FaList, FaSearch } from 'react-icons/fa';
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { MdAnalytics, MdAppRegistration, MdOutlinePayment } from "react-icons/md";
 import { ImProfile } from "react-icons/im";
 import { RiAddBoxFill } from "react-icons/ri";
-import { useState } from 'react';
-import useAdmin from '../../Hooks/useAdmin';
+import { useContext, useState } from 'react';
 import { TiThMenu } from "react-icons/ti";
+import Navbar from '../Components/Shared/Navbar';
+import DashboardNavbar from '../Components/Dashboard/DashboardNavbar';
+import { AuthContext } from '../Components/AuthProvider/AuthProvider';
 
 
-const Dashboard = () => {
-    const [isAdmin] = useAdmin();
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
+const DashboardLayout = () => {
+    // const [isAdmin] = useAdmin();
+    const isAdmin = false
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const {users} = useContext(AuthContext);
+    const navigate = useNavigate()
+
+    if(!users){
+        navigate("/")
+    }
+
+    
 
     return (
         <div className="flex flex-col lg:flex-row min-h-screen">
@@ -25,7 +36,7 @@ const Dashboard = () => {
             </div>
 
             {/* Dashboard sidebar */}
-            <div className={`w-full lg:w-64 bg-orange-400 lg:block ${isSidebarOpen ? 'block' : 'hidden'}`}>
+            <div className={`w-full lg:w-64 text-white dark:bg-gray-900 bg-orange-400 lg:block ${isSidebarOpen ? 'block' : 'hidden'}`}>
                 <ul className="menu p-4">
                     {isAdmin ? (
                         <>
@@ -57,21 +68,27 @@ const Dashboard = () => {
                     ) : (
                         <>
                             <li>
-                                <NavLink to="/dashboard/analytics">
-                                    <MdAnalytics />
-                                    User Profile
-                                </NavLink>
-                            </li>
-                            <li>
                                 <NavLink to="/dashboard/profile">
-                                    <ImProfile />
-                                    Manage Products
+                                    <MdAnalytics />
+                                    Profile
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/registerCamps">
+                                <NavLink to="/dashboard/manageProducts">
+                                    <ImProfile />
+                                    Manage your products
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/yourCart">
                                     <MdAppRegistration />
-                                    
+                                    Your Cart
+                                </NavLink>
+                            </li>
+                            <li>
+                                <NavLink to="/dashboard/orderHistory">
+                                    <MdOutlinePayment />
+                                    Order History
                                 </NavLink>
                             </li>
                             <li>
@@ -96,15 +113,20 @@ const Dashboard = () => {
                             Available Camps
                         </NavLink>
                     </li>
+                    <li className=''>test</li>
                 </ul>
+                
             </div>
 
+            
+
             {/* Dashboard content */}
-            <div className="flex-1 p-8">
+            <div className="flex-1 p-2">
+                <DashboardNavbar/>
                 <Outlet />
             </div>
         </div>
     );
 };
 
-export default Dashboard;
+export default DashboardLayout;
