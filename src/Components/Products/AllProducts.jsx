@@ -3,7 +3,7 @@ import useAxios from "../../Hooks/useAxios";
 import ProductsCard from "./ProductsCard";
 import { useQuery } from "@tanstack/react-query";
 
-const Products = () => {
+const AllProducts = () => {
     const axiosPublic = useAxios()
 
     const {data: products, isLoading} = useQuery({
@@ -18,6 +18,9 @@ const Products = () => {
         return "loading........"
       }
 
+      console.log(products);
+      
+
    
     return (
         <div className="mt-12">
@@ -26,11 +29,11 @@ const Products = () => {
             </div>
             <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-5 p-5">
             {
-                products?.slice(0,8).map(product=><ProductsCard key={product.id} product={product} />)
+                products?.map(product=><ProductsCard key={product.id} product={product} />)
             }
         </div>
         </div>
     );
 };
 
-export default Products;
+export default AllProducts;

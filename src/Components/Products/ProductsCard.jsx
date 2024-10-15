@@ -4,10 +4,12 @@ import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import useAxios from "../../Hooks/useAxios";
 import toast, { Toaster } from 'react-hot-toast';
+import useCart from "../../Context/useCart";
 
 const ProductsCard = ({ product }) => {
     const {users} = useContext(AuthContext)
     const axiosPublic = useAxios()
+    const {refetch} = useCart()
 
     const handlecart = () =>{
        const data = {
@@ -17,7 +19,7 @@ const ProductsCard = ({ product }) => {
         axiosPublic.post("/add-cart", data)
         .then(data=>{
             toast.success(data?.data?.message)
-            
+            refetch()
         })
 
     }
@@ -41,7 +43,7 @@ const ProductsCard = ({ product }) => {
                 </button>
             </div>
             <Toaster
-  position="top-right"
+  position="bottom-right"
   reverseOrder={true}
 />
         </div>

@@ -32,14 +32,14 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          to="/allCraft"
+          to="/allProducts"
           className={({ isActive }) =>
             `px-3 py-2 rounded transition duration-300 ${
               isActive ? activeClassName : hoverClassName
             }`
           }
         >
-          All Art & Craft Items
+          All Products
         </NavLink>
       </li>
       <li>
