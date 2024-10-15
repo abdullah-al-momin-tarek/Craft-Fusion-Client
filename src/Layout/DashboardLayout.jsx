@@ -80,7 +80,7 @@ const DashboardLayout = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/yourCart">
+                                <NavLink to="/dashboard/cart">
                                     <MdAppRegistration />
                                     Your Cart
                                 </NavLink>

@@ -8,6 +8,7 @@ import DashboardLayout from "../Layout/DashboardLayout";
 import Profile from "../Components/Dashboard/Profile";
 import Products from "../Components/Products/Products";
 import MyProducts from "../Components/Dashboard/User/MyProducts";
+import Cart from "../Components/Dashboard/User/Cart";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
         path: "manageProducts",
         element: <MyProducts/>
       },
+      {
+        path: "cart",
+        element: <Cart/>
+      }
     ]
   }
 ]);
