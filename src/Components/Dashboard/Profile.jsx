@@ -7,7 +7,7 @@ const Profile = () => {
     const {carts} = useCart()
     return (
         <div className="flex items-center justify-center mt-12">
-            <div className="flex flex-col justify-center max-w-xs p-6 shadow-md bg-green-300 rounded-xl sm:px-12 dark:bg-gray-700 dark:text-white">
+            <div className="flex flex-col justify-center w-4xl p-6 shadow-md bg-green-300 rounded-xl sm:px-12 dark:bg-gray-700 dark:text-white">
 	<img src={users?.photoURL} alt="" className="w-32 h-32 mx-auto rounded-full dark:bg-gray-500 aspect-square" />
 	<div className="space-y-4 text-center divide-y dark:divide-gray-300">
 		<div className="my-2 space-y-1">

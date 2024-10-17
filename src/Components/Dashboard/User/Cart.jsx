@@ -5,6 +5,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useCart from "../../../Context/useCart";
+import toast, { Toaster } from "react-hot-toast";
 
 const Cart = () => {
     const { users } = useContext(AuthContext);
@@ -100,8 +101,16 @@ const Cart = () => {
                 if (res.data.message === "Updated") {
                     refetch();
                 }
+                else if(res.data.message === "Quantity not available"){
+                    toast.error("Quantity not available")}
             })
             .catch((err) => {
+                console.log(err);
+                
+                if(err.messaage=="Quantity not available"){
+                   console.log(err);
+                   
+                }
                 console.error("Failed to update quantity:", err);
             });
     };
@@ -177,6 +186,10 @@ const Cart = () => {
                     </tbody>
                 </table>
             </div>
+            <Toaster
+  position="bottom-right"
+  reverseOrder={false}
+/>
         </div>
     );
 };

@@ -47,13 +47,13 @@ const DashboardLayout = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/addCamp">
+                                <NavLink to="/dashboard/manageUsers">
                                     <RiAddBoxFill />
                                     Manage Users
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/manageCamps">
+                                <NavLink to="/dashboard/manageAllProducts">
                                     <FaList />
                                     Manage All Products
                                 </NavLink>
@@ -108,12 +108,12 @@ const DashboardLayout = () => {
                         </NavLink>
                     </li>
                     <li>
-                        <NavLink to="/available-camps">
+                        <NavLink to="/allProducts">
                             <FaSearch />
-                            Available Camps
+                            All Products
                         </NavLink>
                     </li>
-                    <li className=''>test</li>
+                    
                 </ul>
                 
             </div>

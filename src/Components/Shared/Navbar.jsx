@@ -119,10 +119,11 @@ const Navbar = () => {
         {
           users && <Link to={"/dashboard/profile"}><button className="bg-lime-700 p-2 text-white rounded-xl hover:bg-inherit border border-lime-700">Dashboard</button></Link>
         }
+        <Link to={'dashboard/cart'}>
         <div className="relative">
         <button className="text-2xl text-[#FF6F61]"><FaCartPlus /></button>
         <small className="absolute -top-2  text-white font-bold text-[10px] bg-green-500 rounded-full px-1">{carts?.length ? carts?.length : 0}</small>
-        </div>
+        </div></Link>
         {/* Theme Controller */}
 
         <Theme />
