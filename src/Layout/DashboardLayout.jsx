@@ -5,20 +5,25 @@ import { ImProfile } from "react-icons/im";
 import { RiAddBoxFill } from "react-icons/ri";
 import { useContext, useState } from 'react';
 import { TiThMenu } from "react-icons/ti";
-import Navbar from '../Components/Shared/Navbar';
 import DashboardNavbar from '../Components/Dashboard/DashboardNavbar';
 import { AuthContext } from '../Components/AuthProvider/AuthProvider';
+import useAdmin from '../Hooks/useAdmin';
 
 
 const DashboardLayout = () => {
-    // const [isAdmin] = useAdmin();
-    const isAdmin = false
+    const [isAdmin,isAdminLoading] = useAdmin();
+    console.log("test",isAdmin);
+    
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const {users} = useContext(AuthContext);
     const navigate = useNavigate()
 
     if(!users){
         navigate("/")
+    }
+
+    if(isAdminLoading){
+        return "loading........"
     }
 
     
@@ -38,7 +43,7 @@ const DashboardLayout = () => {
             {/* Dashboard sidebar */}
             <div className={`w-full lg:w-64 text-white dark:bg-gray-900 bg-orange-400 lg:block ${isSidebarOpen ? 'block' : 'hidden'}`}>
                 <ul className="menu p-4">
-                    {isAdmin ? (
+                    {isAdmin=== "admin" ? (
                         <>
                             <li>
                                 <NavLink to="/dashboard/profile">
@@ -59,9 +64,9 @@ const DashboardLayout = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/manageRegisterCamps">
+                                <NavLink to="/dashboard/allTransactionHistory">
                                     <FaBook />
-                                    Manage Register Camps
+                                    All transaction history
                                 </NavLink>
                             </li>
                         </>
@@ -92,9 +97,9 @@ const DashboardLayout = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/paymentHistory">
+                                <NavLink to="/dashboard/sellingHistory">
                                     <MdOutlinePayment />
-                                    Payment History
+                                    Selling History
                                 </NavLink>
                             </li>
                         </>

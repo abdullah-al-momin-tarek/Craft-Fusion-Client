@@ -10,6 +10,8 @@ import Products from "../Components/Products/Products";
 import MyProducts from "../Components/Dashboard/User/MyProducts";
 import Cart from "../Components/Dashboard/User/Cart";
 import PurchaseHistory from "../Components/Dashboard/User/PurchaseHistory";
+import SellingHistory from "../Components/Dashboard/User/SellingHistory";
+import AllUsers from "../Components/Dashboard/Admin/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,16 @@ const router = createBrowserRouter([
       {
         path: "purchaseHistory",
         element: <PurchaseHistory/>
+      },
+      {
+        path: "sellingHistory",
+        element: <SellingHistory/>
+      },
+
+      // admin
+      {
+        path: "manageUsers",
+        element: <AllUsers/>
       }
     ]
   }

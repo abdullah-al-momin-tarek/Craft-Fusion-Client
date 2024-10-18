@@ -6,7 +6,7 @@ import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 
 
-const PurchaseHistory = () => {
+const SellingHistory = () => {
     const { users } = useContext(AuthContext);
     const axiosPublic = useAxios();
     
@@ -15,9 +15,9 @@ const PurchaseHistory = () => {
     }
     
     const { data: products, isLoading } = useQuery({
-        queryKey: ["buy"],
+        queryKey: ["sell"],
         queryFn: async () => {
-            const data = await axiosPublic.get(`/purchase-history/${users?.email}`);
+            const data = await axiosPublic.get(`/selling-history/${users?.email}`);
             return data.data;
         }
     });
@@ -87,4 +87,4 @@ const PurchaseHistory = () => {
     );
 };
 
-export default PurchaseHistory;
+export default SellingHistory;

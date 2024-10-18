@@ -1,19 +1,22 @@
-import { useQuery } from "@tanstack/react-query";
-import useAuth from "./useAuth";
+import { useContext } from "react";
+import { AuthContext } from "../Components/AuthProvider/AuthProvider";
 import useAxios from "./useAxios";
+import { useQuery } from "@tanstack/react-query";
+
 
 
 const useAdmin = () => {
-    const { user } = useAuth();
+    const { users } = useContext(AuthContext);
     const useAxiosData = useAxios()
     const { data: isAdmin, isPending: isAdminLoading } = useQuery({
-        queryKey: [user?.email, 'isAdmin'],
+        queryKey: [users?.email, 'isAdmin'],
         queryFn: async () => {
-            const res = await useAxiosData.get(`/users/admin/${user.email}`);
-            console.log(res.data);
-            return res.data?.admin;
+            const res = await useAxiosData.get(`/user/${users.email}`);
+            console.log(res.data.role   );
+            return res.data?.role;
         }
     })
+    
     return [isAdmin, isAdminLoading]
 };
 
