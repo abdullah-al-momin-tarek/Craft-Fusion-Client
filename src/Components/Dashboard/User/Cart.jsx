@@ -169,10 +169,8 @@ const Cart = () => {
                                     </div>
                                 </td>
                                 <td>
-                                    <div className="flex gap-3 text-xl">
-                                        <button className="text-yellow-600">
-                                            <FiEdit />
-                                        </button>
+                                    <div className="flex gap-8 text-xl">
+                                        
                                         <button onClick={() => handleDelete(cart.id)} className="text-red-600 text-2xl">
                                             <MdDelete />
                                         </button>
