@@ -38,7 +38,9 @@ const ProductsCard = ({ product }) => {
             {/* Buttons are hidden initially and will be shown on hover */}
             <div className="absolute inset-0 flex gap-5 justify-center items-center bg-gray-900 bg-opacity-50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 {/* Add to Cart button with hover effects */}
-                <button onClick={handlecart} className="text-xl text-white flex items-center gap-2 p-2 bg-[#FF78AC] rounded-xl transform transition-transform duration-300 hover:scale-110 hover:bg-pink-700">
+                {
+                    product?.quantity === 0? <p className="bg-red-600 text-white p-2 rounded-xl text-xl">Out of stock</p> : <div className="flex gap-5 justify-center items-center">
+                        <button onClick={handlecart} className="text-xl text-white flex items-center gap-2 p-2 bg-[#FF78AC] rounded-xl transform transition-transform duration-300 hover:scale-110 hover:bg-pink-700">
                     <FaCartPlus /> Add to Cart
                 </button>
                 
@@ -46,6 +48,9 @@ const ProductsCard = ({ product }) => {
                 <button className="text-xl text-white flex items-center gap-2 p-2 bg-yellow-600 rounded-xl transform transition-transform duration-300 hover:scale-110 hover:bg-yellow-500">
                     <BsCartCheckFill /> Buy Now
                 </button>
+                    </div>
+                }
+                
             </div>
             <Toaster
   position="bottom-right"

@@ -72,13 +72,13 @@ const Cart = () => {
 
 
                 axiosPublic.post(`/buy`, data).then((res) => {
-                    if (res.data.message === "Product bought and removed from cart") {
+                    console.log(res.data);
+                    
+                    if (res.data.message === "Product bought successfully") {
                         Swal.fire({
                             title: "Successful!",
                             text: "Your product has been bought.",
                             icon: "success",
-                            showConfirmButton: false,
-                            timer: 500,
                         });
                         refetch();
                     }
