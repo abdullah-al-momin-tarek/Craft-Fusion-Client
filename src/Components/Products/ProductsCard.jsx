@@ -14,12 +14,17 @@ const ProductsCard = ({ product }) => {
     const handlecart = () =>{
        const data = {
             product_id: product.id,
-            user_email: users.email
+            user_email: users.email,
+            seller_email: product.email
         }
         axiosPublic.post("/add-cart", data)
         .then(data=>{
             toast.success(data?.data?.message)
             refetch()
+        })
+        .catch((err)=>{
+           toast.error(err.response.data.message);
+            
         })
 
     }
