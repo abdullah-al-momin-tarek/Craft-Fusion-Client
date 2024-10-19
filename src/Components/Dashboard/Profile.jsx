@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import useCart from "../../Context/useCart";
+import useProductsEmail from "../../Context/useProductsEmail";
 
 const Profile = () => {
     const {users} = useContext(AuthContext)
-    const {carts} = useCart()
+    const {carts} = useCart();
+	const {products} = useProductsEmail()
     return (
         <div className="flex items-center justify-center mt-12">
             <div className="flex flex-col justify-center w-4xl p-6 shadow-md bg-green-300 rounded-xl sm:px-12 dark:bg-gray-700 dark:text-white">
@@ -15,7 +17,8 @@ const Profile = () => {
 			<p className="px-5 text-xs sm:text-base dark:text-white/60">{users?.email}</p>
 		</div>
 		<div className="flex justify-center pt-2 space-x-4 align-center">
-			<span className="font-bold">Products: 3</span>
+			{/* TODO: products count */}
+			<span className="font-bold">Products: {products.length}</span>
             <span className="font-bold">Cart: {carts?.length}</span>
 		</div>
 	</div>

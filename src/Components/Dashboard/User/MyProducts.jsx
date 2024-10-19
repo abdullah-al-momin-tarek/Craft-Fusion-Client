@@ -5,23 +5,47 @@ import useAxios from "../../../Hooks/useAxios";
 import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
+import { FaPlus, FaUserPlus } from "react-icons/fa";
+import useProductsEmail from "../../../Context/useProductsEmail";
+import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+
 
 
 const MyProducts = () => {
     const { users } = useContext(AuthContext);
     const axiosPublic = useAxios();
+    const {  products, refetch, isLoading } = useProductsEmail();
     
     if (!users) {
         return;
     }
-    
-    const { data: products, refetch, isLoading } = useQuery({
-        queryKey: ["myProducts"],
-        queryFn: async () => {
-            const data = await axiosPublic.get(`/products/${users?.email}`);
-            return data.data;
+
+    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const onSubmit = (data) => {
+
+        const product = {
+            name: data.name,
+            category: data.category,
+            price: data.price,
+            quantity: data.quantity,
+            image: data.image,
+            description: data.description,
+            email: users.email,
         }
-    });
+      
+        axiosPublic.post(`add-product`, product)
+        .then(res=>{
+            console.log(res.data);
+            if(res.data.message === 'Product Added'){
+                toast.success('Product Added Successfully')
+            }
+            
+        })
+    };
+    
+   
 
     const formatDateTime = (dateString) => {
         const date = new Date(dateString);
@@ -36,8 +60,8 @@ const MyProducts = () => {
     };
 
     const getTrimmedDescription = (description) => {
-        if (description.length > 20) {
-            return description.slice(0, 20) + "...";
+        if (description?.length > 20) {
+            return description?.slice(0, 20) + "...";
         }
         return description;
     };
@@ -79,7 +103,13 @@ const MyProducts = () => {
 
     return (
         <div>
+            <div>
             <h2 className="text-3xl font-bold text-center my-9">All of your Products</h2>
+            <div className="flex justify-end mb-5">
+            <button onClick={()=>document.getElementById('add-product').showModal()} className="flex items-center bg-green-500 px-2 p-2 rounded-xl text-white justify-end"><FaPlus /> Add Product</button>
+
+            </div>
+            </div>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
@@ -125,6 +155,130 @@ const MyProducts = () => {
                     </tbody>
                 </table>
             </div>
+
+
+{/* Add Product Modal */}
+<dialog id="add-product" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+      {/* if there is a button in form, it will close the modal */}
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="font-bold text-2xl">Add Product</h2>
+
+      <div className="form-control">
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          placeholder="Enter product name"
+          className="input input-bordered input-primary w-full max-w-md"
+          {...register("name", { required: true, maxLength: 30 })}
+        />
+        {errors.name && errors.name.type === "required" && (
+          <span className="text-red-500">This is required</span>
+        )}
+        {errors.name && errors.name.type === "maxLength" && (
+          <span className="text-red-500">Max length exceeded</span>
+        )}
+      </div>
+
+      <div className="flex gap-5">
+        <div className="form-control">
+          <label htmlFor="category">Category</label>
+          <select 
+            id="category" 
+            className="select select-secondary w-full max-w-md" 
+            {...register("category", { required: true })}>
+            <option disabled value="">
+              Select product category
+            </option>
+            <option value="Clothing">Clothing</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Decor">Decor</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Home Textiles">Home Textiles</option>
+            <option value="Toys">Toys</option>
+            <option value="Kitchenware">Kitchenware</option>
+            <option value="Home Accessories">Home Accessories</option>
+          </select>
+          {errors.category && <span className="text-red-500">Category is required</span>}
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="price">Price</label>
+          <input
+            id="price"
+            type="text"
+            placeholder="Enter product price"
+            className="input input-bordered input-primary w-full max-w-md"
+            {...register("price", { required: true, validate: value => !isNaN(value) && value > 0 })}
+          />
+          {errors.price && errors.price.type === "required" && (
+            <span className="text-red-500">Price is required</span>
+          )}
+          {errors.price && errors.price.type === "validate" && (
+            <span className="text-red-500">Price must be a positive number</span>
+          )}
+        </div>
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="quantity">Quantity</label>
+        <input
+          id="quantity"
+          type="text"
+          placeholder="Enter product quantity"
+          className="input input-bordered input-primary w-full max-w-md"
+          {...register("quantity", { required: true, validate: value => Number.isInteger(+value) && value > 0 })}
+        />
+        {errors.quantity && errors.quantity.type === "required" && (
+          <span className="text-red-500">Quantity is required</span>
+        )}
+        {errors.quantity && errors.quantity.type === "validate" && (
+          <span className="text-red-500">Quantity must be a positive integer</span>
+        )}
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="image">Image</label>
+        <input
+          id="image"
+          type="text"
+          placeholder="Enter image URL"
+          className="input input-bordered input-primary w-full max-w-md"
+          {...register("image", { required: true, pattern: /^https?:\/\// })}
+        />
+        {errors.image && errors.image.type === "required" && (
+          <span className="text-red-500">Image URL is required</span>
+        )}
+        {errors.image && errors.image.type === "pattern" && (
+          <span className="text-red-500">Must be a valid URL</span>
+        )}
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          className="textarea textarea-secondary w-full max-w-md"
+          placeholder="Enter product description"
+          {...register("description", { required: true })}
+        ></textarea>
+        {errors.description && <span className="text-red-500">Description is required</span>}
+      </div>
+
+      <div className="form-control">
+        <button className="btn btn-primary w-full max-w-md mt-5">Add Product</button>
+      </div>
+    </form>
+
+  </div>
+</dialog>
+<Toaster
+  position="bottom-right"
+  reverseOrder={false}
+/>
         </div>
     );
 };
