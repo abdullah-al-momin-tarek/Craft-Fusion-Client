@@ -39,7 +39,8 @@ const MyProducts = () => {
         .then(res=>{
             console.log(res.data);
             if(res.data.message === 'Product Added'){
-                toast.success('Product Added Successfully')
+                toast.success('Product Added Successfully');
+                document.getElementById('add-product').close()
             }
             
         })
