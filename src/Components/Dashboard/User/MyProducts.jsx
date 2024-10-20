@@ -41,6 +41,7 @@ const MyProducts = () => {
             if(res.data.message === 'Product Added'){
                 toast.success('Product Added Successfully');
                 document.getElementById('add-product').close()
+                refetch()
             }
             
         })
