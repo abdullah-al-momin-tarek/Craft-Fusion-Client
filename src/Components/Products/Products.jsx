@@ -15,14 +15,14 @@ const Products = () => {
       })
       
       if(isLoading){
-        return "loading........"
+        return <div className='flex justify-center items-center h-screen'><span className="loading loading-spinner loading-lg"></span></div>
       }
 
    
     return (
         <div className="mt-12">
             <div>
-                <h2 className="text-3xl font-bold text-center mb-6">Exciting Products</h2>
+                <h2 className="text-3xl font-bold text-center mb-6">EXCITING PRODUCTS</h2>
             </div>
             <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-5 p-5">
             {

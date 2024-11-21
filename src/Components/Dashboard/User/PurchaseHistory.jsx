@@ -22,9 +22,9 @@ const PurchaseHistory = () => {
         }
     });
 
-    if (isLoading) {
-        return <h1>Loading...</h1>
-    }
+    if(isLoading){
+        return <div className='flex justify-center items-center h-screen'><span className="loading loading-spinner loading-lg"></span></div>
+      }
 
     const formatDateTime = (dateString) => {
         const date = new Date(dateString);
@@ -44,7 +44,7 @@ const PurchaseHistory = () => {
 
     return (
         <div>
-            <h2 className="text-3xl font-bold text-center my-9">Your purchase history</h2>
+            <h2 className="text-3xl font-bold text-center my-9">YOUR PURCHASE HISTORY</h2>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>

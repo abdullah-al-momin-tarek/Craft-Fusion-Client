@@ -7,6 +7,7 @@ import Slider from "../Components/Home/Slider";
 import Unique from "../Components/Home/Unique";
 import ProductsCard from "../Components/Products/ProductsCard";
 import Products from "../Components/Products/Products";
+import WhyUs from "../Components/Home/WhyUs";
 
 const Home = () => {
   return (
@@ -21,7 +22,8 @@ const Home = () => {
       <Unique/>
       <Products/>
 
-      <Collection />
+      <WhyUs/>
+
     </div>
   );
 };

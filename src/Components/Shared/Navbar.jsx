@@ -49,30 +49,7 @@ const Navbar = () => {
           All Products
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/addCraft"
-          className={({ isActive }) =>
-            `px-3 py-2 rounded transition duration-300 ${
-              isActive ? activeClassName : hoverClassName
-            }`
-          }
-        >
-          Add Craft Item
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          to={`/myCraft/${users?.email}`}
-          className={({ isActive }) =>
-            `px-3 py-2 rounded transition duration-300 ${
-              isActive ? activeClassName : hoverClassName
-            }`
-          }
-        >
-          My Art & Craft List
-        </NavLink>
-      </li>
+      
 
     </>
   );

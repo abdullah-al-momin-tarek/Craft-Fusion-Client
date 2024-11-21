@@ -1,32 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useAxios from "../../../Hooks/useAxios";
-import { FiEdit } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
 
-
-const SellingHistory = () => {
-    const { users } = useContext(AuthContext);
-    const axiosPublic = useAxios();
-    
-    if (!users) {
-        return;
-    }
-    
-    const { data: products, isLoading } = useQuery({
-        queryKey: ["sell"],
-        queryFn: async () => {
-            const data = await axiosPublic.get(`/selling-history/${users?.email}`);
-            return data.data;
+const AllOrderHistory = () => {
+    const axiosPublic = useAxios()
+    const {data: orders, isLoading} = useQuery({
+        queryKey: ['orders'],
+        queryFn: async ()=>{
+          const res = await axiosPublic.get(`/order-history`)
+          return res.data 
         }
-    });
+    })
 
-    if (isLoading) {
-        return <h1>Loading...</h1>
-    }
-
-    const formatDateTime = (dateString) => {
+    if(isLoading){
+        return <div className='flex justify-center items-center h-screen'><span className="loading loading-spinner loading-lg"></span></div>
+      }
+      const formatDateTime = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleString('en-GB', {
             day: 'numeric',
@@ -37,14 +25,9 @@ const SellingHistory = () => {
             hour12: true, 
         });
     };
-
-    
-
-    
-
     return (
         <div>
-            <h2 className="text-3xl font-bold text-center my-9">YOUR SELLING HISTORY</h2>
+            <h2 className="text-3xl font-bold text-center my-9">ALL ORDER HISTORY</h2>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
@@ -54,11 +37,13 @@ const SellingHistory = () => {
                             <th>Category</th>
                             <th>Price</th>
                             <th>Quantity</th>
+                            <th>Buyer</th>
+                            <th>Seller</th>
                             <th>Date & Time</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {products?.map((product, index) => (
+                        {orders?.map((product, index) => (
                             <tr key={product.id}>
                                 <th>{index + 1}</th>
                                 <td>
@@ -76,6 +61,8 @@ const SellingHistory = () => {
                                 <td>{product.product_category}</td>
                                 <td>{product.price}</td>
                                 <td>{product.quantity}</td>
+                                <td>{product.buyer_email}</td>
+                                <td>{product.seller_email}</td>
                                 <td>{formatDateTime(product.date)}</td>
                                 
                             </tr>
@@ -87,4 +74,4 @@ const SellingHistory = () => {
     );
 };
 
-export default SellingHistory;
+export default AllOrderHistory;

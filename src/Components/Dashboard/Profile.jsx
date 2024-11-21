@@ -18,7 +18,7 @@ const Profile = () => {
 		</div>
 		<div className="flex justify-center pt-2 space-x-4 align-center">
 			{/* TODO: products count */}
-			<span className="font-bold">Products: {products.length}</span>
+			<span className="font-bold">Products: {products?.length}</span>
             <span className="font-bold">Cart: {carts?.length}</span>
 		</div>
 	</div>

@@ -1,17 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-background-color: #F2F0EA;
+  background-color: white ;
 }
 
-.dark body{
-  background-color: #1A103D;
+.dark body {
+  background-color: #1a103d;
 }
-
 
 .roboto {
   font-family: "Roboto", sans-serif;
@@ -19,5 +18,5 @@ background-color: #F2F0EA;
 }
 
 .swiper-wrapper {
-transition-timing-function: linear !important;
+  transition-timing-function: linear !important;
 }

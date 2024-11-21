@@ -1,29 +1,38 @@
-import { useQuery } from "@tanstack/react-query";
-import { useContext } from "react";
-import { AuthContext } from "../../AuthProvider/AuthProvider";
-import useAxios from "../../../Hooks/useAxios";
-import { FiEdit } from "react-icons/fi";
-import { MdDelete } from "react-icons/md";
+import { Toaster } from "react-hot-toast";
+import useProducts from "../../../Context/useProducts";
 import Swal from "sweetalert2";
+import useAxios from "../../../Hooks/useAxios";
+import { MdDelete } from "react-icons/md";
+import { FiEdit } from "react-icons/fi";
 
-
-const AllUsers = () => {
-    const { users } = useContext(AuthContext);
+const AllAdminProducts = () => {
+    const {products, isLoading,refetch} = useProducts();
     const axiosPublic = useAxios();
-    
-    if (!users) {
-        return;
-    }
-    
-    const { data: allUsers, refetch, isLoading } = useQuery({
-        queryKey: ["AllUsers"],
-        queryFn: async () => {
-            const data = await axiosPublic.get(`/users`);
-            return data.data;
-        }
-    });
+
+
+    if(isLoading){
+        return <div className='flex justify-center items-center h-screen'><span className="loading loading-spinner loading-lg"></span></div>
+      }
 
     
+    const formatDateTime = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: true, 
+        });
+    };
+
+    const getTrimmedDescription = (description) => {
+        if (description?.length > 20) {
+            return description?.slice(0, 20) + "...";
+        }
+        return description;
+    };
 
     const handleDelete = id =>{
 
@@ -60,46 +69,52 @@ const AllUsers = () => {
         
     }
 
-    if (isLoading) {
-        return <div className='flex justify-center items-center h-screen'><span className="loading loading-spinner loading-lg"></span></div>
-        
-    }
-
     return (
         <div>
-            <h2 className="text-3xl font-bold text-center my-9">ALL USERS</h2>
+            <div>
+            <h2 className="text-3xl font-bold text-center my-9">ALL PRODUCTS</h2>
+            <div className="flex justify-end mb-5">
+          
+
+            </div>
+            </div>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>
                         <tr>
                             <th></th>
                             <th>Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Description</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {allUsers?.map((user, index) => (
-                            <tr key={user.id}>
+                        {products?.map((product, index) => (
+                            <tr key={product.id}>
                                 <th>{index + 1}</th>
                                 <td>
                                     <div className="flex items-center gap-3">
                                         <div className="avatar">
                                             <div className="mask mask-squircle h-12 w-12">
-                                                <img src={user.photoURL} alt="Product Image" />
+                                                <img src={product.image} alt="Product Image" />
                                             </div>
                                         </div>
                                         <div>
-                                            <div className="font-bold">{user.name}</div>
+                                            <div className="font-bold">{product.name}</div>
+                                            <div className="text-xs opacity-50">{formatDateTime(product.post_time)}</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>{user.email}</td>
-                                <td>{user.role}</td>
+                                <td>{product.category}</td>
+                                <td>{product.price}</td>
+                                <td>{product.quantity}</td>
+                                <td>{getTrimmedDescription(product.description)}</td>
                                 <td>
                                     <div className="flex gap-3 text-xl"> 
-                                        <button onClick={()=>handleDelete(user.id)} className="text-red-600 text-2xl"><MdDelete /></button>
+                                        <button onClick={()=>handleDelete(product.id)} className="text-red-600 text-2xl"><MdDelete /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -107,8 +122,14 @@ const AllUsers = () => {
                     </tbody>
                 </table>
             </div>
+
+
+<Toaster
+  position="bottom-right"
+  reverseOrder={false}
+/>
         </div>
     );
 };
 
-export default AllUsers;
+export default AllAdminProducts;

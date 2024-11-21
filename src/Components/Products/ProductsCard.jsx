@@ -31,20 +31,18 @@ const ProductsCard = ({ product }) => {
 
     return (
         <div className="relative p-5 bg-gray-200 text-center flex-col items-center flex rounded-xl max-w-[400px] group">
-            <img className="w-60 rounded-xl" src="https://i.ibb.co.com/ZN7WX3k/hat.jpg" alt="Hat cap" />
+            <img className="w-60 h-60 object-cover rounded-xl" src={product?.image} alt="Hat cap" />
             <h4 className="text-2xl mt-3">{product?.name}</h4>
             <p>{product?.price} Taka</p>
             
-            {/* Buttons are hidden initially and will be shown on hover */}
             <div className="absolute inset-0 flex gap-5 justify-center items-center bg-gray-900 bg-opacity-50 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                {/* Add to Cart button with hover effects */}
+                
                 {
                     product?.quantity === 0? <p className="bg-red-600 text-white p-2 rounded-xl text-xl">Out of stock</p> : <div className="flex gap-5 justify-center items-center">
                         <button onClick={handlecart} className="text-xl text-white flex items-center gap-2 p-2 bg-[#FF78AC] rounded-xl transform transition-transform duration-300 hover:scale-110 hover:bg-pink-700">
                     <FaCartPlus /> Add to Cart
                 </button>
                 
-                {/* Buy Now button with hover effects */}
                 <button className="text-xl text-white flex items-center gap-2 p-2 bg-yellow-600 rounded-xl transform transition-transform duration-300 hover:scale-110 hover:bg-yellow-500">
                     <BsCartCheckFill /> Buy Now
                 </button>

@@ -12,6 +12,8 @@ import Cart from "../Components/Dashboard/User/Cart";
 import PurchaseHistory from "../Components/Dashboard/User/PurchaseHistory";
 import SellingHistory from "../Components/Dashboard/User/SellingHistory";
 import AllUsers from "../Components/Dashboard/Admin/AllUsers";
+import AllAdminProducts from "../Components/Dashboard/Admin/AllAdminProducts";
+import AllOrderHistory from "../Components/Dashboard/Admin/AllOrderHistory";
 
 const router = createBrowserRouter([
   {
@@ -66,6 +68,14 @@ const router = createBrowserRouter([
       {
         path: "manageUsers",
         element: <AllUsers/>
+      },
+      {
+        path: "manageAllProducts",
+        element: <AllAdminProducts/>
+      },
+      {
+        path: "allOrderHistory",
+        element: <AllOrderHistory/>
       }
     ]
   }

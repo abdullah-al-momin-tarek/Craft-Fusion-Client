@@ -106,7 +106,7 @@ const MyProducts = () => {
     return (
         <div>
             <div>
-            <h2 className="text-3xl font-bold text-center my-9">All of your Products</h2>
+            <h2 className="text-3xl font-bold text-center my-9">ALL OF YOUR PRODUCTS</h2>
             <div className="flex justify-end mb-5">
             <button onClick={()=>document.getElementById('add-product').showModal()} className="flex items-center bg-green-500 px-2 p-2 rounded-xl text-white justify-end"><FaPlus /> Add Product</button>
 

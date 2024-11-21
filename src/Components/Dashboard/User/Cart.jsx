@@ -117,7 +117,7 @@ const Cart = () => {
 
     return (
         <div>
-            <h2 className="text-3xl font-bold text-center my-9">All of your Products</h2>
+            <h2 className="text-3xl font-bold text-center my-9">ALL OF YOUR PRODUCTS</h2>
             <div className="overflow-x-auto">
                 <table className="table table-xs">
                     <thead>

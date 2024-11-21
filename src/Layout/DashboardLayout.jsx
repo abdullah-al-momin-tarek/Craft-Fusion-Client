@@ -23,7 +23,7 @@ const DashboardLayout = () => {
     }
 
     if(isAdminLoading){
-        return "loading........"
+        return <div className='flex justify-center items-center h-screen'><span className="loading loading-spinner loading-lg"></span></div>
     }
 
     
@@ -64,9 +64,9 @@ const DashboardLayout = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/allTransactionHistory">
+                                <NavLink to="/dashboard/allOrderHistory">
                                     <FaBook />
-                                    All transaction history
+                                    All Order history
                                 </NavLink>
                             </li>
                         </>
