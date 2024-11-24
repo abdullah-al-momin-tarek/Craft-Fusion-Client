@@ -4,15 +4,15 @@ import useAxios from "../Hooks/useAxios";
 
 const useProducts = () => {
     const axiosPublic = useAxios()
-    const {data: products, isLoading, refetch} = useQuery({
+    const { data: products, isLoading, refetch } = useQuery({
         queryKey: ['products'],
-        queryFn: async ()=>{
-          const res = await axiosPublic.get(`/products`)
-          return res.data
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/products`)
+            return res.data
         },
     })
     return (
-        {products, isLoading,refetch}
+        { products, isLoading, refetch }
     );
 };
 

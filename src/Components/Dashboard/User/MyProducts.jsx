@@ -103,6 +103,29 @@ const MyProducts = () => {
         
     }
 
+    const handleEdit = (data) => () => {
+      const product = {
+        name: data.name,
+        category: data.category,
+        price: data.price,
+        quantity: data.quantity,
+        image: data.image,
+        description: data.description,
+        email: users.email,
+    }
+  
+    axiosPublic.patch(`edit-product/${product.id}`, product)
+    .then(res=>{
+        console.log(res.data);
+        if(res.data.message === 'Product updated'){
+            toast.success('Product Updated Successfully');
+            document.getElementById('edit-product').close()
+            refetch()
+        }
+        
+    })
+    }
+
     return (
         <div>
             <div>
@@ -148,10 +171,133 @@ const MyProducts = () => {
                                 <td>{getTrimmedDescription(product.description)}</td>
                                 <td>
                                     <div className="flex gap-3 text-xl"> 
-                                        <button className="text-yellow-600"><FiEdit /></button>
+                                        <button onClick={()=>document.getElementById('edit-product').showModal()} className="text-yellow-600"><FiEdit /></button>
                                         <button onClick={()=>handleDelete(product.id)} className="text-red-600 text-2xl"><MdDelete /></button>
                                     </div>
                                 </td>
+                                {/* Edit product modal */}
+<dialog id="edit-product" className="modal">
+  <div className="modal-box">
+    <form method="dialog">
+      <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    <form onSubmit={handleSubmit(handleEdit)}>
+      <h2 className="font-bold text-2xl">Update Product</h2>
+
+      <div className="form-control">
+        <label htmlFor="name">Name</label>
+        <input
+          id="name"
+          placeholder="Enter product name"
+          defaultValue={product.name}
+          className="input input-bordered input-primary w-full max-w-md"
+          {...register("name", { required: true, maxLength: 30 })}
+        />
+        {errors.name && errors.name.type === "required" && (
+          <span className="text-red-500">This is required</span>
+        )}
+        {errors.name && errors.name.type === "maxLength" && (
+          <span className="text-red-500">Max length exceeded</span>
+        )}
+      </div>
+
+      <div className="flex gap-5">
+        <div className="form-control">
+          <label htmlFor="category">Category</label>
+          <select 
+            id="category" 
+            defaultValue={product.category}
+            className="select select-secondary w-full max-w-md" 
+            {...register("category", { required: true })}>
+            <option disabled value="">
+              Select product category
+            </option>
+            <option value="Clothing">Clothing</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Decor">Decor</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Home Textiles">Home Textiles</option>
+            <option value="Toys">Toys</option>
+            <option value="Kitchenware">Kitchenware</option>
+            <option value="Home Accessories">Home Accessories</option>
+          </select>
+          {errors.category && <span className="text-red-500">Category is required</span>}
+        </div>
+
+        <div className="form-control">
+          <label htmlFor="price">Price</label>
+          <input
+            id="price"
+            type="text"
+            defaultValue={product.price}
+            placeholder="Enter product price"
+            className="input input-bordered input-primary w-full max-w-md"
+            {...register("price", { required: true, validate: value => !isNaN(value) && value > 0 })}
+          />
+          {errors.price && errors.price.type === "required" && (
+            <span className="text-red-500">Price is required</span>
+          )}
+          {errors.price && errors.price.type === "validate" && (
+            <span className="text-red-500">Price must be a positive number</span>
+          )}
+        </div>
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="quantity">Quantity</label>
+        <input
+          id="quantity"
+          type="text"
+          defaultValue={product.quantity}
+          placeholder="Enter product quantity"
+          className="input input-bordered input-primary w-full max-w-md"
+          {...register("quantity", { required: true, validate: value => Number.isInteger(+value) && value > 0 })}
+        />
+        {errors.quantity && errors.quantity.type === "required" && (
+          <span className="text-red-500">Quantity is required</span>
+        )}
+        {errors.quantity && errors.quantity.type === "validate" && (
+          <span className="text-red-500">Quantity must be a positive integer</span>
+        )}
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="image">Image</label>
+        <input
+          id="image"
+          type="text"
+          defaultValue={product.image}
+          placeholder="Enter image URL"
+          className="input input-bordered input-primary w-full max-w-md"
+          {...register("image", { required: true, pattern: /^https?:\/\// })}
+        />
+        {errors.image && errors.image.type === "required" && (
+          <span className="text-red-500">Image URL is required</span>
+        )}
+        {errors.image && errors.image.type === "pattern" && (
+          <span className="text-red-500">Must be a valid URL</span>
+        )}
+      </div>
+
+      <div className="form-control">
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          defaultValue={product.description}
+          className="textarea textarea-secondary w-full max-w-md"
+          placeholder="Enter product description"
+          {...register("description", { required: true })}
+        ></textarea>
+        {errors.description && <span className="text-red-500">Description is required</span>}
+      </div>
+
+      <div className="form-control">
+        <button className="btn btn-primary w-full max-w-md mt-5">Add Product</button>
+      </div>
+    </form>
+
+  </div>
+</dialog>
                             </tr>
                         ))}
                     </tbody>
@@ -276,6 +422,8 @@ const MyProducts = () => {
 
   </div>
 </dialog>
+
+
 <Toaster
   position="bottom-right"
   reverseOrder={false}

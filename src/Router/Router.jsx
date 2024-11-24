@@ -6,7 +6,6 @@ import Home from "../Pages/Home";
 import AllProducts from "../Components/Products/AllProducts";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Profile from "../Components/Dashboard/Profile";
-import Products from "../Components/Products/Products";
 import MyProducts from "../Components/Dashboard/User/MyProducts";
 import Cart from "../Components/Dashboard/User/Cart";
 import PurchaseHistory from "../Components/Dashboard/User/PurchaseHistory";

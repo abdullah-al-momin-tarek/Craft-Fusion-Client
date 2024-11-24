@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../../AuthProvider/AuthProvider";
 import useAxios from "../../../Hooks/useAxios";
-import { FiEdit } from "react-icons/fi";
 import { MdDelete } from "react-icons/md";
 import Swal from "sweetalert2";
 import useCart from "../../../Context/useCart";

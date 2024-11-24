@@ -7,30 +7,29 @@ import { FaCartPlus } from "react-icons/fa";
 import useCart from "../../Context/useCart";
 
 const Navbar = () => {
-  const { users,logOut } = useContext(AuthContext);
-  const {carts, refetch} = useCart()
+  const { users, logOut } = useContext(AuthContext);
+  const { carts, refetch } = useCart()
 
-  const activeClassName = "text-white bg-[#c87ffc]";
-  const hoverClassName = "hover:bg-orange-500 hover:text-white";
+  const activeClassName = "text-white bg-[#808000]";
+  const hoverClassName = "hover:bg-[#808200] hover:text-white";
 
 
- const handleLogout=()=>{
+  const handleLogout = () => {
     logOut()
-    .then(()=>{
-      console.log("logout");
-      
-      refetch()
-    })
- }
+      .then(() => {
+        console.log("logout");
+
+        refetch()
+      })
+  }
 
   const links = (
     <>
-      <li>
+      <li className="px-3">
         <NavLink
           to="/"
           className={({ isActive }) =>
-            `px-3 py-2 rounded transition duration-300 ${
-              isActive ? activeClassName : hoverClassName
+            `px-3 py-2 rounded transition duration-300  ${isActive ? activeClassName : hoverClassName
             }`
           }
         >
@@ -41,21 +40,20 @@ const Navbar = () => {
         <NavLink
           to="/allProducts"
           className={({ isActive }) =>
-            `px-3 py-2 rounded transition duration-300 ${
-              isActive ? activeClassName : hoverClassName
+            `px-3 py-2 rounded transition duration-300 ${isActive ? activeClassName : hoverClassName
             }`
           }
         >
           All Products
         </NavLink>
       </li>
-      
+
 
     </>
   );
 
   return (
-    <div className="navbar bg-[#A8D5E3] dark:bg-black/35 rounded-b-md fixed z-50">
+    <div className="navbar bg-[#F5F5DC] dark:bg-black/35 rounded-b-md fixed z-50">
       <div className="navbar-start">
         <div className="dropdown z-10">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -83,10 +81,10 @@ const Navbar = () => {
         </div>
         <Link
           to="/"
-          className="btn btn-ghost -ml-7 md:ml-0 md:text-2xl font-bold text-orange-700 flex items-center justify-center"
+          className="btn btn-ghost -ml-7 md:ml-0 md:text-2xl font-bold text-[#808000] flex items-center justify-center"
         >
-          <img className="w-7 h-7" src="/craftFusion.png" alt="Logo" />
-          <span className="text-blue-500 -ml-2">CraftFusion</span>
+          <img className="w-8 h-8 " src="/craftFusion.png" alt="Logo" />
+          <span className="text-[#808000] -ml-2">CraftFusion</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -97,37 +95,37 @@ const Navbar = () => {
           users && <Link to={"/dashboard/profile"}><button className="bg-lime-700 p-2 text-white rounded-xl hover:bg-inherit border border-lime-700">Dashboard</button></Link>
         }
         <Link to={'dashboard/cart'}>
-        <div className="relative">
-        <button className="text-2xl text-[#FF6F61]"><FaCartPlus /></button>
-        <small className="absolute -top-2  text-white font-bold text-[10px] bg-green-500 rounded-full px-1">{carts?.length ? carts?.length : 0}</small>
-        </div></Link>
+          <div className="relative">
+            <button className="text-2xl text-[#808000]"><FaCartPlus /></button>
+            <small className="absolute -top-2  text-white font-bold text-[10px] bg-green-700 rounded-full px-1">{carts?.length ? carts?.length : 0}</small>
+          </div></Link>
         {/* Theme Controller */}
 
         <Theme />
       </div>
       <div>
         {
-          users? <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src={users?.photoURL} />
+          users ? <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+              <div className="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src={users?.photoURL} />
+              </div>
             </div>
-          </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li><a>Settings</a></li>
-            <li><button onClick={handleLogout}>Logout</button></li>
-          </ul>
-        </div> : <Link to={'/login'}><button  className="bg-orange-500 text-white p-3 rounded-xl">Login</button></Link>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <li>
+                <a className="justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+              <li><a>Settings</a></li>
+              <li><button onClick={handleLogout}>Logout</button></li>
+            </ul>
+          </div> : <Link to={'/login'}><button className="bg-[#808000] text-white p-3 rounded-xl">Login</button></Link>
         }
       </div>
     </div>
